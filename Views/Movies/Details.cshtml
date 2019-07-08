@@ -14,7 +14,12 @@
             @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Title, "Title", "Title")
+            <input asp-for="Title" class="form-control" hidden="hidden"/>
+
+            <button id="btnCount" onclick="count()">Title Size</button>
+
+            <input type="text" id="size" name="size" value="0" readonly="readonly" />
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ReleaseDate)
@@ -43,3 +48,10 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+<script>
+    function count() {
+        val = document.getElementById("Title").value;
+        console.log(val);
+        document.getElementById("size").value = val.length;
+    }
+</script>
