@@ -1,4 +1,5 @@
-﻿#if Neve
+﻿//define Neve
+#if Neve
 
 // No includes so you get red lines
 #region snippet_1
@@ -22,3 +23,5 @@ namespace MvcMovie.Models
 }
 #endregion
 #endif
+
+

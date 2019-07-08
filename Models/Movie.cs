@@ -1,4 +1,4 @@
-﻿//#define First 
+﻿#define First 
 #if First
 #region snippet1
 using System;
@@ -15,6 +15,8 @@ namespace MvcMovie.Models
         public DateTime ReleaseDate { get; set; }
         public string Genre { get; set; }
         public decimal Price { get; set; }
+        public string Rating { get; set; }
+
     }
 }
 #endregion

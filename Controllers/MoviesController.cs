@@ -86,10 +86,9 @@ namespace MvcMovie.Controllers
                 Title = "Conan",
                 ReleaseDate = DateTime.Now,
                 Genre = "Action",
-                Price = 1.99M
-                //,   Rating = "R"
-            }
-                );
+                Price = 1.99M,
+                Rating = "R"
+            });
         }
 
         // POST: Movies/Create
@@ -108,19 +107,20 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id != null)
             {
-                return NotFound();
+                var movie = await _context.Movie.FindAsync(id);
+                if (movie == null)
+                {
+                    return NotFound();
+                }
+                return View(movie);
             }
 
-            var movie = await _context.Movie.FindAsync(id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-            return View(movie);
+            return NotFound();
         }
 
         // POST: Movies/Edit/5
@@ -130,15 +130,12 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
         {
-            if (id == movie.Id)
-            {
-                return NotFound();
-            }
+            
 
             if (ModelState.IsValid)
             {
                 try
-                {
+                {                    
                     _context.Update(movie);
                     await _context.SaveChangesAsync();
                 }
