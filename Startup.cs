@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using MvcMovie.Models;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace MvcMovie
 {
@@ -25,7 +26,7 @@ namespace MvcMovie
 
         // This method gets called by the runtime. 
         // Use this method to add services to the container.
-#region snippet_ConfigureServices
+        #region snippet_ConfigureServices
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -37,15 +38,18 @@ namespace MvcMovie
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                    .AddXmlDataContractSerializerFormatters()
+
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<MvcMovieContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("MvcMovieContext")));
         }
-#endregion
+        #endregion
 
 #if UseSqlite
-#region snippet_UseSqlite
+        #region snippet_UseSqlite
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -61,7 +65,7 @@ namespace MvcMovie
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
-#endregion
+        #endregion
 #endif
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MvcMovie.Models;
+using System.Xml;
+
 
 namespace MvcMovie.Controllers
 {
@@ -186,6 +188,18 @@ namespace MvcMovie.Controllers
             return RedirectToAction(nameof(Index));
         }
         #endregion
+
+
+        [HttpGet]
+        [Produces("application/rdf+xml")]
+        public ActionResult ExtractTBX()
+        {
+            var movie = _context.Movie;
+            return Ok(movie);
+            
+        }
+
+
 
         private bool MovieExists(int id)
         {
