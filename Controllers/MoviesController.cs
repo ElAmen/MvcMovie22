@@ -59,13 +59,13 @@ namespace MvcMovie.Controllers
         }
         #region snippet_details
         // GET: Movies/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            else id = 5;
 
             var movie = await _context.Movie
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -154,6 +154,7 @@ namespace MvcMovie.Controllers
             }
             return View(movie);
         }
+
 
         #region snippet_delete
         // GET: Movies/Delete/5
