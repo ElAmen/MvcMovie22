@@ -20,7 +20,7 @@ namespace MvcMovie.Controllers
 
         #region snippet_SearchGenre
         // GET: Movies
-        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        public async Task<IActionResult> Index(string MovieGenreFilter, string searchString)
         {
             #region snippet_LINQ
             // Use LINQ to get list of genres.
@@ -32,14 +32,14 @@ namespace MvcMovie.Controllers
             var movies = from m in _context.Movie
                          select m;
 
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(MovieGenreFilter))
             {
-                movies = movies.Where(s => s.Title.Contains(movieGenre));
+                movies = movies.Where(s => s.Genre.Contains(MovieGenreFilter));
             }
 
-            if (!string.IsNullOrEmpty(movieGenre))
+            if (!string.IsNullOrEmpty(searchString))
             {
-                movies = movies.Where(x => x.Genre == searchString);
+                movies = movies.Where(x => x.Title == searchString);
             }
 
             var movieGenreVM = new MovieGenreViewModel
